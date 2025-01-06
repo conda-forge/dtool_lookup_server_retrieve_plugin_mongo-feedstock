@@ -6,20 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/dtool-lookup-server-retrieve-plugin-mongo/dtool-lookup-server-retrieve-plugin-mongo-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/dtool-lookup-server-retrieve-plugin-mongo/dtool-lookup-server-retrieve-plugin-mongo-{{ version }}.tar.gz
   sha256: 83c7aba1f7d24c335672165f48220c3c644073c985ffa6e6096af48579fff3bf
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - pymongo
     - dtoolcore >=3.18.0
     - dtool_lookup_server
@@ -31,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/jic-dtool/dtool-lookup-server-retrieve-plugin-mongo
